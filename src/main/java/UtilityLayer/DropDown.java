@@ -1,5 +1,7 @@
 package UtilityLayer;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -56,4 +58,52 @@ public class DropDown extends BaseClass {
 
 	}
 
+	public static String capturevaluebyValue(WebElement wb, String value) {
+
+		if (wb.isDisplayed() && wb.isEnabled()) {
+			new Select(wb).selectByValue(value);
+		}
+		return new Select(wb).getFirstSelectedOption().getText();
+	}
+
+	public static String caturevalueByindex(WebElement wb, int index) {
+
+		if (wb.isDisplayed() && wb.isEnabled()) {
+			new Select(wb).selectByIndex(index);
+		}
+		return new Select(wb).getFirstSelectedOption().getText();
+	}
+
+	public static void printAllvalue(WebElement wb) {
+		if (wb.isDisplayed() && wb.isEnabled()) {
+			List<WebElement> ls = new Select(wb).getOptions();
+			for (WebElement abc : ls) {
+				System.out.println(abc.getText());
+			}
+		}
+	}
+	
+	public static void selectSpecificValue(WebElement wb,String value) {
+		if(wb.isDisplayed()&&wb.isEnabled()) {
+			List<WebElement> ls=new Select(wb).getOptions();
+			for(WebElement abc:ls) {
+				if(abc.getText().equalsIgnoreCase(value)) {
+					System.out.println(value +"value is present");
+				}
+				else {
+					System.out.println(value +"value is not present");
+				}
+			}
+		}
+	}
+	
+	public static void selectValue(List<WebElement> ls, String value) {
+
+		for (WebElement abc : ls) {
+			if (abc.getText().equalsIgnoreCase(value)) {
+				abc.click();
+				break;
+			}
+		}
+	}
 }
